@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "manifest_id": "bf16-lre-matrix-20260826-jais-resolved-v1",
-  "status": "jais_manifest_resolved_pending_cuda_pilot",
+  "status": "completed_bf16_matrix_20260826",
   "purpose": "Pinned Hugging Face BF16 extraction matrix; this is a new experiment and is independent of every Q8_0 artifact.",
   "created_utc": "2026-08-26T00:00:00Z",
   "dataset": {
