@@ -31,5 +31,7 @@ recomputable by filtering or aggregating that CSV; no values are estimated.
 
 The paper intentionally avoids inserting exact numbers for analyses whose
 artifacts are diagnostic rather than primary, unless the number is needed to
-explain a decision. A missing future citation or release URL is recorded in
-`unresolved_gaps.md` instead of being invented.
+explain a decision. The public source and validation archive is available at
+`https://github.com/voidwest/arabic-morphology-probing-lre`; remaining
+provenance limitations are stated in the manuscript and dataset provenance
+record.
