@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "status": "source_content_recovered_and_exact_rebuild_verified",
+  "authoritative_frozen_dataset": {
+    "path": "output/data/paper1_normalized.jsonl",
+    "records": 4701,
+    "bytes": 2297339,
+    "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719"
+  },
+  "upstream": {
+    "name": "UD Arabic-PADT",
+    "repository": "https://github.com/UniversalDependencies/UD_Arabic-PADT.git",
+    "archived_release_tag": "r2.17",
+    "archived_git_commit": "e9744f8efb593ce746c46df3edfbfb102957b38a",
+    "release_identity": {
+      "historical_tag_recoverable": false,
+      "reason": "The original local source copy retained no Git metadata. Its authoritative content hash matches two official releases.",
+      "matching_official_releases": {
+        "r2.17": "e9744f8efb593ce746c46df3edfbfb102957b38a",
+        "r2.18": "5b1ad7e87c70b0e290f8499b64531c7d6a88eea0"
+      },
+      "earliest_matching_release": "r2.17",
+      "previous_release_r2.16_train_sha256": "33e70c67550f9eb1979303f62bc8cd1f33ff1c48e09e97d87a4a42015e49f982"
+    },
+    "local_path": "data/upstream/UD_Arabic-PADT-r2.17",
+    "license": "CC BY-NC-SA 3.0",
+    "license_path": "data/upstream/UD_Arabic-PADT-r2.17/LICENSE.txt",
+    "files": {
+      "train": {
+        "path": "data/upstream/UD_Arabic-PADT-r2.17/ar_padt-ud-train.conllu",
+        "bytes": 40698415,
+        "sha256": "f0b56962b340f5325bb5d293f47717522e706112c19029e82c225355c6d65e85",
+        "used": true
+      },
+      "dev": {
+        "path": "data/upstream/UD_Arabic-PADT-r2.17/ar_padt-ud-dev.conllu",
+        "bytes": 5397917,
+        "sha256": "0d95ee511cf2f26a64e229e86e5e9b37851555ebc8b53c5ebb261f2dfbc185e7",
+        "used": false
+      },
+      "test": {
+        "path": "data/upstream/UD_Arabic-PADT-r2.17/ar_padt-ud-test.conllu",
+        "bytes": 5163066,
+        "sha256": "793c87bf173d491af2092ef7f87b04a2cf6c596490e7347a2065058a053a6389",
+        "used": false
+      },
+      "license": {
+        "sha256": "79e211ff70191c7f5cf0e33a8cf2bfa5799318d51ae7a5fd1a065abcb3e3ab05"
+      },
+      "readme": {
+        "sha256": "8b3c478baab15c440926629d9cb4269ea40f2c0675fb79a94691fb1b56658ef3"
+      }
+    }
+  },
+  "camel_tools": {
+    "python_package_version": "1.6.0",
+    "disambiguator": {
+      "model_name": "calima-msa-r13",
+      "package_name": "disambig-mle-calima-msa-r13",
+      "package_version": "0.2.5",
+      "package_archive_sha256": "d6cba8bf9d6d4cafcdec48b1952e735c4e89d1b55f90e20f6423aa8fe17a8da8",
+      "model_file_sha256": "e7d79e7744101b6933f9a4b41063d4b9934488fc8c8b6130a24467e0f0dfe9af",
+      "url": "https://github.com/CAMeL-Lab/camel-tools-data/releases/download/2022.03.21/disambig_mle_calima-msa-r13-0.2.5.zip"
+    },
+    "morphology_database": {
+      "package_name": "morphology-db-msa-r13",
+      "package_version": "0.4.0",
+      "package_archive_sha256": "566ad5f650b9a52190a092ed62f1f1496da195c5a8dc0bc7726c704abd5cc0f2",
+      "database_file_sha256": "195bc25a333237a2126470da888d7936b59ed3729f9210e0a4194ba43497dd70",
+      "url": "https://github.com/CAMeL-Lab/camel-tools-data/releases/download/2022.03.21/morphology_db_calima-msa-r13-0.4.0.zip"
+    }
+  },
+  "historical_pipeline": {
+    "source_repository": "/home/west/ember",
+    "git_commit": "1a98982e3e21c1e4e98e86025bd2d823d3ff0574",
+    "vendored_path": "vendor/ember_dataset_pipeline_1a98982e",
+    "exporter_sha256": "b93e03e96e4bcdcbe9703e682ed9688014e03e695d90bf645c8657a9deca923c",
+    "normalizer_sha256": "d7e33faff0a3c0767e04a422432d93ba6287fa5b68fb3f768f52bf16a39a4f8d",
+    "splitter_sha256": "43a769db058b84c5e41091e59d7fb94844cf061dc9479bdd8a63647d2d095e55",
+    "config_sha256": "bf7577f628bbfa2c4605ba043f784200deee6c26246fe65d71c275ba6400a72a"
+  },
+  "transformations": [
+    {
+      "stage": "sentence_disambiguation",
+      "input": "UD r2.17 train split only",
+      "behavior": "Process sentences in source order; retain Arabic tokens whose PADT source UPOS is NOUN, VERB, or ADJ; apply the calima-msa-r13 MLE disambiguator to each full sentence; take top=1; stop after 5000 retained records.",
+      "sentences_consumed": 330,
+      "tokens_seen": 11437,
+      "output_records": 5000,
+      "output_sha256": "056e13b3778d58149f8eca4c2df9fd975d933bbc1a5ea73b4690b4af0a3ba42c"
+    },
+    {
+      "stage": "strict_filter",
+      "behavior": "Normalize CAMeL values, then require lemma, root, abstract pattern, and concrete pattern; drop ambiguous records; retain normalized POS NOUN, VERB, or ADJ.",
+      "input_records": 5000,
+      "dropped_pos_not_allowed": 299,
+      "output_records": 4701
+    },
+    {
+      "stage": "split",
+      "strategy": "root_heldout (the implementation also groups by lemma)",
+      "seed": 17,
+      "ratios": {
+        "train": 0.7,
+        "dev": 0.15,
+        "test": 0.15
+      },
+      "counts": {
+        "train": 3291,
+        "dev": 705,
+        "test": 705
+      },
+      "zero_overlap": [
+        "lemma",
+        "root"
+      ]
+    },
+    {
+      "stage": "paper_adapter",
+      "behavior": "Read historical probes.jsonl in order; append id=stim-NNNN, gender=features.gender, and number=features.number; serialize UTF-8 JSON with Python's default separators."
+    }
+  ],
+  "authoritative_stage_hashes": {
+    "camel_jsonl": "056e13b3778d58149f8eca4c2df9fd975d933bbc1a5ea73b4690b4af0a3ba42c",
+    "camel_report": "077398963106922ffd9a22560ec1ec1cd73d347a802c138dfb4fff42d2f090d6",
+    "canonical_jsonl": "2a6ff31ce0e77e22b0360d22a7f5f0ec36630957a91ac694c0722fdad7b941fc",
+    "probes_jsonl": "0082ef10554f94996e4faf34cb703a39e373fe8a49697a8534cdf085cf6b9708",
+    "paper1_jsonl": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719"
+  },
+  "known_historical_quirk": {
+    "field": "number",
+    "stored_label": "def",
+    "semantic_label": "du",
+    "affected_records": 45,
+    "cause": "The historical normalizer used one global value-alias table. CAMeL num=d (dual) was mapped to def, an alias intended for definiteness/state.",
+    "handling": "The frozen JSONL remains byte-identical. Current analysis code canonicalizes number:def to number:du at load time. Do not silently edit the frozen artifact."
+  },
+  "rebuild": {
+    "script": "scripts/data/rebuild_paper1_dataset.py",
+    "default_output": "output/data/paper1_dataset_rebuild",
+    "install_requires_explicit_flag": true,
+    "verified_end_to_end_run": {
+      "path": "output/data/paper1_dataset_rebuild_from_upstream_20260824",
+      "manifest_sha256": "7afc899925b940c96ef4156a7cef3b23d95686ae98863c12f57f6fcd574ff795",
+      "export_mode": "recomputed_from_padt",
+      "status": "verified_exact_rebuild"
+    }
+  }
+}

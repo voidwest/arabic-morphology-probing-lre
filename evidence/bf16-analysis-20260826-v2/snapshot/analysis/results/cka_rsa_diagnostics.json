@@ -1,0 +1,61 @@
+{
+  "decision": "retained_as_diagnostic_not_primary; probe/interface/pooling results already answer the planned questions",
+  "entries": [
+    {
+      "cosine_distance_rsa_spearman": 0.5756956490755052,
+      "layer": 15,
+      "left": "full_prompt_final",
+      "linear_cka": 0.6431240267882764,
+      "model_id": "llama-3.2-1b",
+      "right": "metadata_free_prompt_final",
+      "sample_examples": 600
+    },
+    {
+      "cosine_distance_rsa_spearman": 0.2686721120068853,
+      "layer": 15,
+      "left": "full_prompt_final",
+      "linear_cka": 0.3559980855152678,
+      "model_id": "llama-3.2-1b",
+      "right": "target_final_subtoken",
+      "sample_examples": 600
+    },
+    {
+      "cosine_distance_rsa_spearman": 0.5267525837211272,
+      "layer": 15,
+      "left": "target_final_subtoken",
+      "linear_cka": 0.6140727510962242,
+      "model_id": "llama-3.2-1b",
+      "right": "target_mean_span",
+      "sample_examples": 600
+    },
+    {
+      "cosine_distance_rsa_spearman": 0.4249904663453989,
+      "layer": 27,
+      "left": "full_prompt_final",
+      "linear_cka": 0.5081015984769554,
+      "model_id": "qwen3-0.6b",
+      "right": "metadata_free_prompt_final",
+      "sample_examples": 600
+    },
+    {
+      "cosine_distance_rsa_spearman": 0.24158547488284413,
+      "layer": 27,
+      "left": "full_prompt_final",
+      "linear_cka": 0.32488829742589165,
+      "model_id": "qwen3-0.6b",
+      "right": "target_final_subtoken",
+      "sample_examples": 600
+    },
+    {
+      "cosine_distance_rsa_spearman": 0.580329052374682,
+      "layer": 27,
+      "left": "target_final_subtoken",
+      "linear_cka": 0.6354654935227494,
+      "model_id": "qwen3-0.6b",
+      "right": "target_mean_span",
+      "sample_examples": 600
+    }
+  ],
+  "purpose": "pre-registration diagnostic; never used for selection",
+  "schema_version": 1
+}

@@ -1,0 +1,2852 @@
+{
+  "analysis_contract": {
+    "all_models_outer_folds": 5,
+    "alpha": 1.0,
+    "feature_sets": [
+      "full_prompt_final",
+      "metadata_free_prompt_final",
+      "target_final_subtoken",
+      "target_mean_span"
+    ],
+    "layer_selection": "development accuracy, then macro-F1, then lowest layer; refit train+dev",
+    "primary_models": [
+      "llama-3.2-1b",
+      "qwen3-0.6b"
+    ],
+    "splits": [
+      "random",
+      "lemma-heldout",
+      "root-heldout"
+    ],
+    "tasks": [
+      "pos",
+      "gender",
+      "number"
+    ],
+    "weights_required": false
+  },
+  "analysis_schema": "bf16-local-analysis-v1",
+  "bundles": {
+    "allam-7b": {
+      "full_metadata": {
+        "checksums_sha256": "5017920c65229d1dc0ea0320af47033dc14ac4b80da79e0c47f7926cd1ecb27d",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "dabb8c25c0d18096dc4e3c3fe415e41aafda1f2b9e6e27f9ab64cd36c5d33e89"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model allam-7b --condition full_metadata --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 2660744616,
+            "estimated_cost_usd": 0.08216116777705672,
+            "examples_per_second": 31.37388602947755,
+            "extraction_seconds": 85.809583,
+            "hourly_usd": 1.974,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": 49.430947,
+            "model_load_seconds": 5.478938,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 149.837538,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "allam-7b",
+          "model_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T18:57:06.551436+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "total_target_tokens": 5302,
+          "validated_utc": "2026-08-25T18:59:36.388944+00:00"
+        },
+        "manifest_sha256": "cdb93d6b9250a8717b80cc07c6920ee64cf9891e9ca26884920907b0b7ccdc43",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-public-20260825-v2/bundles/allam-7b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "ad0e58e1baa24dc294ddf68d28d0daa22bcf546a0f1cafae1c835cfea0e65fbc",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "dabb8c25c0d18096dc4e3c3fe415e41aafda1f2b9e6e27f9ab64cd36c5d33e89"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model allam-7b --condition metadata_free --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 2660744616,
+            "estimated_cost_usd": 0.07451175233008499,
+            "examples_per_second": 34.59474580398276,
+            "extraction_seconds": 79.152654,
+            "hourly_usd": 1.974,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 47.269237,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 135.887339,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "allam-7b",
+          "model_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T19:00:51.372892+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+          "total_target_tokens": 5302,
+          "validated_utc": "2026-08-25T19:03:07.260217+00:00"
+        },
+        "manifest_sha256": "eaa469a210d8419260c397f85533c076b0165edbc5ea4e389e0f651237ed81f9",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-public-20260825-v2/bundles/allam-7b/metadata_free"
+      }
+    },
+    "gemma-4-2b": {
+      "full_metadata": {
+        "checksums_sha256": "e3aa76c91bf930b5c834b6b6c4778cd4bf45947531bb80ed6ca7d12f1dd886d3",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model gemma-4-2b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1484355680,
+            "estimated_cost_usd": null,
+            "examples_per_second": 8.897850002329234,
+            "extraction_seconds": 489.314591,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 25.499731,
+            "model_load_seconds": 8.792257,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 528.329479,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1536,
+          "expected_layer_count": 35,
+          "model_id": "gemma-4-2b",
+          "model_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T02:54:38.346737+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "total_target_tokens": 8970,
+          "validated_utc": "2026-08-26T03:03:26.676204+00:00"
+        },
+        "manifest_sha256": "3168a0eb9606940d246cbb50b498fb06e4bd6714b8051108118ed1a48ab24b4c",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/gemma-4-2b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "97bb6f6c2c82f6490d03d51a4533b6a7c64055af38d357ad1496762d3d19a2c0",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model gemma-4-2b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1484355680,
+            "estimated_cost_usd": null,
+            "examples_per_second": 9.415227352560116,
+            "extraction_seconds": 486.018508,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 8.81061,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 499.29715,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1536,
+          "expected_layer_count": 35,
+          "model_id": "gemma-4-2b",
+          "model_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T03:03:42.404940+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+          "total_target_tokens": 8970,
+          "validated_utc": "2026-08-26T03:12:01.702078+00:00"
+        },
+        "manifest_sha256": "609de7b57bb3d8d6e57f690222132a8e0accdf2cd530997433a9cf56a33d978f",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/gemma-4-2b/metadata_free"
+      }
+    },
+    "jais-13b": {
+      "full_metadata": {
+        "checksums_sha256": "953f4d4b280778299c5502e3ee90250c58d2e8ce9ca70167b7471b5f18455b49",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "scripts/bf16_extract.py --manifest configs/bf16_model_matrix_20260826_jais_resolved.json --run-root runs/bf16-jais-pilot-20260826-v3 --model jais-13b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-jais-pilot-20260826-v3 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "cost": {
+            "availability_zone": null,
+            "bytes_captured": 4082708008,
+            "estimated_cost_usd": null,
+            "examples_per_second": 6.456980757895145,
+            "extraction_seconds": 578.504238,
+            "hourly_usd": null,
+            "instance_type": null,
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 133.099154,
+            "pricing_mode": null,
+            "region": null,
+            "runtime_seconds": 728.047923,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 5120,
+          "expected_layer_count": 40,
+          "model_id": "jais-13b",
+          "model_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-jais-pilot-20260826-v3",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T22:02:01.418125+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "total_target_tokens": 5149,
+          "validated_utc": "2026-08-25T22:14:09.465996+00:00"
+        },
+        "manifest_sha256": "0db3c9dab4e4e87a45fb22b2f0810d98b770203ed5d07f333c40a595e584a3a2",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-jais-20260826-v1/bundles/jais-13b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "7fd5f1cb8effdfe776b0d7dd5853917302c8840003085d82bfaca93fcf42cdf1",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "scripts/bf16_extract.py --manifest configs/bf16_model_matrix_20260826_jais_resolved.json --run-root runs/bf16-jais-pilot-20260826-v3 --model jais-13b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-jais-pilot-20260826-v3 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 4082708008,
+            "estimated_cost_usd": null,
+            "examples_per_second": 6.436186733971226,
+            "extraction_seconds": 566.37234,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 146.413249,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 730.400341,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 5120,
+          "expected_layer_count": 40,
+          "model_id": "jais-13b",
+          "model_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-jais-pilot-20260826-v3",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T22:16:43.047486+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0d5eb87f91e6577dac17bc319eee940fb875b899",
+          "total_target_tokens": 5149,
+          "validated_utc": "2026-08-25T22:28:53.447795+00:00"
+        },
+        "manifest_sha256": "398797ffa974781d873b7abb4be499c9ba15b9aea0dc29f3c06d67da9f55f00a",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-jais-20260826-v1/bundles/jais-13b/metadata_free"
+      }
+    },
+    "llama-3.1-8b": {
+      "full_metadata": {
+        "checksums_sha256": "a2b9fa9ab9a6175e6b5e2452601e325cff63d2589302fda007dd85a9d2866821",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model llama-3.1-8b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 4095196840,
+            "estimated_cost_usd": null,
+            "examples_per_second": 11.838204349396698,
+            "extraction_seconds": 289.904551,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 64.304138,
+            "model_load_seconds": 29.223718,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 397.103686,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "llama-3.1-8b",
+          "model_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T00:18:15.445152+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-26T00:24:52.548824+00:00"
+        },
+        "manifest_sha256": "9666ea5de1be680a1c197449cc4ae7997dbf121b1fe6552a3655254218ebecd8",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/llama-3.1-8b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "4f05531493d782b15d7f164595cff13475c9a21597195a9ac2ecabcd9fdd9499",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model llama-3.1-8b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 4095196840,
+            "estimated_cost_usd": null,
+            "examples_per_second": 15.118618652414598,
+            "extraction_seconds": 281.777833,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 15.431212,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 310.940703,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "llama-3.1-8b",
+          "model_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T00:25:33.745154+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-26T00:30:44.685846+00:00"
+        },
+        "manifest_sha256": "ca9da3dc06fe804c4e908b5f556483a8d00d3e46f94cb46f49212e24a368e1c2",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/llama-3.1-8b/metadata_free"
+      }
+    },
+    "llama-3.2-1b": {
+      "full_metadata": {
+        "checksums_sha256": "2b3d2bd31288b2524aa746eb3e65689343ab8d903e40e96d3fb055e17cdcd7d5",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model llama-3.2-1b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1033428904,
+            "estimated_cost_usd": null,
+            "examples_per_second": 32.88131722951816,
+            "extraction_seconds": 131.980009,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 6.491523,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 142.968429,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 2048,
+          "expected_layer_count": 16,
+          "model_id": "llama-3.2-1b",
+          "model_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T23:45:06.535325+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-25T23:47:29.503740+00:00"
+        },
+        "manifest_sha256": "5f34f41c4eefa599e87be68fbd9c41b063108e02e73e45484bd89d3d669c0521",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/llama-3.2-1b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "14a13cbf05af1d9963899a5251734bb5c102636dff27f871a258ae0ba9d907a8",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model llama-3.2-1b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1033428904,
+            "estimated_cost_usd": null,
+            "examples_per_second": 32.66753683151864,
+            "extraction_seconds": 133.433616,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 6.490186,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 143.904069,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 2048,
+          "expected_layer_count": 16,
+          "model_id": "llama-3.2-1b",
+          "model_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T23:47:41.080253+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-25T23:50:04.984311+00:00"
+        },
+        "manifest_sha256": "2b588553099a42c15dd144ac5317a11d281a969697c5c54c999135f09916ca6a",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/llama-3.2-1b/metadata_free"
+      }
+    },
+    "llama-3.2-3b": {
+      "full_metadata": {
+        "checksums_sha256": "ece34a809d02ebd429c3bf2e890282b1964fbf2dec587418b12cc9b37dd655fc",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model llama-3.2-3b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 2691085032,
+            "estimated_cost_usd": null,
+            "examples_per_second": 16.775124078391652,
+            "extraction_seconds": 230.15603,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 29.577555,
+            "model_load_seconds": 11.428957,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 280.23603,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 3072,
+          "expected_layer_count": 28,
+          "model_id": "llama-3.2-3b",
+          "model_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T03:26:21.417545+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-26T03:31:01.653565+00:00"
+        },
+        "manifest_sha256": "11159f9bd143ec217d9948141520cf2fac6efc93f45ec44bb48c53efe00a1224",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/llama-3.2-3b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "b4dfc472e5877e64d383b61d1d7a81d6491b0ac7d75ccf91eb2caf14a2677e6d",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model llama-3.2-3b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 2691085032,
+            "estimated_cost_usd": null,
+            "examples_per_second": 19.056576161616174,
+            "extraction_seconds": 230.327271,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 6.90771,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 246.68617,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 3072,
+          "expected_layer_count": 28,
+          "model_id": "llama-3.2-3b",
+          "model_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T03:31:28.586822+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+          "total_target_tokens": 10774,
+          "validated_utc": "2026-08-26T03:35:35.272981+00:00"
+        },
+        "manifest_sha256": "0c172b950e9e451251384d6edb58fe5652be4fb3f9be186b58ec00435f41183d",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/llama-3.2-3b/metadata_free"
+      }
+    },
+    "mistral-7b": {
+      "full_metadata": {
+        "checksums_sha256": "e6af2ee51a2a7ee78e92fcd4e7caf0888f84c6599fecfd25fd8d0b0d095a67dd",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model mistral-7b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 7386414760,
+            "estimated_cost_usd": null,
+            "examples_per_second": 12.409394213184385,
+            "extraction_seconds": 286.849782,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 63.836569,
+            "model_load_seconds": 6.775964,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 378.825529,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "mistral-7b",
+          "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T03:12:16.733841+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "total_target_tokens": 23329,
+          "validated_utc": "2026-08-26T03:18:35.559360+00:00"
+        },
+        "manifest_sha256": "9ca0bb28227198a0de46ff0785bb728fa992444e15cd359f3e95358a35b6e1e7",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/mistral-7b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "d0fced3072e20ee135ecea1354de2d8004e81487195cc8de3f4791e19c5965cb",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-gemma-mistral-20260826-v1 --model mistral-7b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-gemma-mistral-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 7386414760,
+            "estimated_cost_usd": null,
+            "examples_per_second": 15.205905259092633,
+            "extraction_seconds": 280.86335,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 6.946009,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 309.155647,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 32,
+          "model_id": "mistral-7b",
+          "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-gemma-mistral-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T03:19:44.148631+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+          "total_target_tokens": 23329,
+          "validated_utc": "2026-08-26T03:24:53.304247+00:00"
+        },
+        "manifest_sha256": "b719e90b3b6a7bcfe20091eef7a28fc235bf0d499a94f40c0b8f0bc31db06d09",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/bf16-gemma-mistral-20260826-v1/bundles/mistral-7b/metadata_free"
+      }
+    },
+    "phi-3-mini": {
+      "full_metadata": {
+        "checksums_sha256": "068fb2ca60a909e2298429ab77878af33719b40d56a1ee5bb045c243419e7bf6",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "606792c2b7144c5c39b212a3bfca2fab4c6b598d706a1c98f393fc87ab2795f9"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model phi-3-mini --condition full_metadata --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 5548857000,
+            "estimated_cost_usd": 0.05914825294994003,
+            "examples_per_second": 43.580580127296045,
+            "extraction_seconds": 72.08091,
+            "hourly_usd": 1.974,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": 15.889529,
+            "model_load_seconds": 4.498813,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 107.868809,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 3072,
+          "expected_layer_count": 32,
+          "model_id": "phi-3-mini",
+          "model_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T18:48:07.322791+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "total_target_tokens": 23375,
+          "validated_utc": "2026-08-25T18:49:55.191589+00:00"
+        },
+        "manifest_sha256": "3ba6a3a9e19ac9d3f8287e681087666f47af1fec24ef8985bf16500404965bb9",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-public-20260825-v2/bundles/phi-3-mini/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "5b7d93b641b1a1a3a0477d5a8962b33c56363e976741827a78c057256663d7ba",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "606792c2b7144c5c39b212a3bfca2fab4c6b598d706a1c98f393fc87ab2795f9"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model phi-3-mini --condition metadata_free --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 5548857000,
+            "estimated_cost_usd": 0.06239692626635999,
+            "examples_per_second": 41.311572433595124,
+            "extraction_seconds": 69.895007,
+            "hourly_usd": 1.974,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 27.395407,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 113.79343,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 3072,
+          "expected_layer_count": 32,
+          "model_id": "phi-3-mini",
+          "model_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T18:52:03.984366+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "f39ac1d28e925b323eae81227eaba4464caced4e",
+          "total_target_tokens": 23375,
+          "validated_utc": "2026-08-25T18:53:57.777778+00:00"
+        },
+        "manifest_sha256": "7a3e764d8837c994a35fd7ec64f5c23d40806fe0b88eae360e0e718b4fc16747",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-public-20260825-v2/bundles/phi-3-mini/metadata_free"
+      }
+    },
+    "qwen2.5-1.5b": {
+      "full_metadata": {
+        "checksums_sha256": "c1c9cc87b8469dd8542f02f6993d8f2eecefe4fa8517631164128321a155f2c0",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model qwen2.5-1.5b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1326536424,
+            "estimated_cost_usd": null,
+            "examples_per_second": 19.346864577697602,
+            "extraction_seconds": 220.786044,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 11.542142,
+            "model_load_seconds": 6.039463,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 242.984753,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1536,
+          "expected_layer_count": 28,
+          "model_id": "qwen2.5-1.5b",
+          "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T23:53:36.819224+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-25T23:57:39.803964+00:00"
+        },
+        "manifest_sha256": "7ae8be9797dac5f1c5ab125bb24734c28e5945cfee85aa832cedb76ce3f943e2",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/qwen2.5-1.5b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "2516b61b21a755bf681e0237d97206317811dfd9686ac339b1520502e1250a3c",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model qwen2.5-1.5b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 1326536424,
+            "estimated_cost_usd": null,
+            "examples_per_second": 20.335701565219228,
+            "extraction_seconds": 220.416712,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 6.06976,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 231.16945,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1536,
+          "expected_layer_count": 28,
+          "model_id": "qwen2.5-1.5b",
+          "model_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T23:57:53.583819+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-26T00:01:44.753260+00:00"
+        },
+        "manifest_sha256": "5fd90d79bc61dfc8a2dd60989fc88b4ab82b83bf896ee0002412d53fb2b7c788",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/qwen2.5-1.5b/metadata_free"
+      }
+    },
+    "qwen3-0.6b": {
+      "full_metadata": {
+        "checksums_sha256": "7534b0977ec4bed6262c80ec00cd64d3320ab4b8ec090e24223b4dfc96524335",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "d83002fe76596bb4e02d490a7e3546749f4de00941be29c5e06d7ce84afd64f6"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model qwen3-0.6b --condition full_metadata --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 884359688,
+            "estimated_cost_usd": null,
+            "examples_per_second": 52.892616158388265,
+            "extraction_seconds": null,
+            "hourly_usd": null,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": null,
+            "model_load_seconds": null,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 88.877873,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1024,
+          "expected_layer_count": 28,
+          "model_id": "qwen3-0.6b",
+          "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T17:58:48.656048+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-25T18:00:17.533904+00:00"
+        },
+        "manifest_sha256": "03cab94d5a319b2bc4bf35f7fa9add659848536b366f44553d26f7872f118297",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-qwen3-0.6b/bundles/qwen3-0.6b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "487a11a2d5ef2d205430fe1d7f867aad0982663bd4187b5d59a981eafca8a0ed",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "d83002fe76596bb4e02d490a7e3546749f4de00941be29c5e06d7ce84afd64f6"
+          },
+          "command": "/mnt/bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/bf16/work/research-stack/configs/bf16_model_matrix_20260825.json --run-root /mnt/bf16/pilot-run --model qwen3-0.6b --condition metadata_free --sync-destination /mnt/bf16/persistent --device cuda:0 --batch-size 4",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "cost": {
+            "availability_zone": "eu-north-1a",
+            "bytes_captured": 884359688,
+            "estimated_cost_usd": null,
+            "examples_per_second": 52.748093486988076,
+            "extraction_seconds": null,
+            "hourly_usd": null,
+            "instance_type": "g6e.xlarge",
+            "model_download_seconds": null,
+            "model_load_seconds": null,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 89.121339,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 1024,
+          "expected_layer_count": 28,
+          "model_id": "qwen3-0.6b",
+          "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "pilot-run",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-25T18:01:19.802863+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-25T18:02:48.924190+00:00"
+        },
+        "manifest_sha256": "20b589c0db091a901c812046a04460fc6404d8a68954ab0ffc738dc9e1b9658c",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/validation-qwen3-0.6b/bundles/qwen3-0.6b/metadata_free"
+      }
+    },
+    "qwen3-8b": {
+      "full_metadata": {
+        "checksums_sha256": "f2cc75f19c410f3965ba94bf4da7272e6e737fc10cc9dd2498cef666a13e7875",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model qwen3-8b --condition full_metadata --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Existing full-metadata stimulus; morphology metadata after the target is available to prompt_final only.",
+            "id": "full_metadata",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nLemma: {lemma}\nRoot: {root}\nPattern: {abstract_pattern}\nPredict the token morphology."
+          },
+          "condition_id": "full_metadata",
+          "config_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 4537107048,
+            "estimated_cost_usd": null,
+            "examples_per_second": 11.17171689566067,
+            "extraction_seconds": 362.116823,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 36.488533,
+            "model_load_seconds": 7.258287,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 420.794366,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 36,
+          "model_id": "qwen3-8b",
+          "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T00:02:30.386647+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-26T00:09:31.181002+00:00"
+        },
+        "manifest_sha256": "56a4d5c19e6c7b195b28593f7dcd3f0bcf7a13fbc84d830ac4cf33eded8026e1",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/qwen3-8b/full_metadata"
+      },
+      "metadata_free": {
+        "checksums_sha256": "f8dbb605381cfb31d36a362d1c3cd3a59d9bd0060bab972d7acd6a552ad40d95",
+        "manifest": {
+          "bundle_schema": "bf16-hidden-state-bundle-v1",
+          "code_identity": {
+            "files": [
+              "__init__.py",
+              "alignment.py",
+              "bundle.py",
+              "cli.py",
+              "extractor.py",
+              "local.py",
+              "preflight.py",
+              "queue.py",
+              "sync.py",
+              "telemetry.py"
+            ],
+            "git_commit": null,
+            "git_state": "workspace is not a Git worktree",
+            "kind": "content_hash",
+            "sha256": "4a6dbc774d31e246d858d9aed75b44c221f0a1cd1c4ed0ebc86310fa03c00960"
+          },
+          "command": "/mnt/research-bf16/work/research-stack/scripts/bf16_extract.py --manifest /mnt/research-bf16/work/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json --run-root /mnt/research-bf16/runs/bf16-accessible-20260826-v1 --model qwen3-8b --condition metadata_free --sync-destination /mnt/research-bf16/sync/bf16-accessible-20260826-v1 --device cuda:0 --batch-size 1",
+          "condition": {
+            "description": "Ablation retaining surface and target but removing lemma, root, and pattern fields.",
+            "id": "metadata_free",
+            "template": "Arabic morphology token probe.\nSurface: {surface_dediac}\nToken: {target}\nPredict the token morphology."
+          },
+          "condition_id": "metadata_free",
+          "config_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "cost": {
+            "availability_zone": "eu-north-1b",
+            "bytes_captured": 4537107048,
+            "estimated_cost_usd": null,
+            "examples_per_second": 12.424660498323215,
+            "extraction_seconds": 356.726472,
+            "hourly_usd": null,
+            "instance_type": "g6e.2xlarge",
+            "model_download_seconds": 0.0,
+            "model_load_seconds": 7.044364,
+            "pricing_mode": "on-demand",
+            "region": "eu-north-1",
+            "runtime_seconds": 378.360052,
+            "sync_seconds": null,
+            "validation_seconds": null
+          },
+          "dataset": {
+            "examples": 4701,
+            "immutable": true,
+            "path": "output/data/paper1_normalized.jsonl",
+            "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+            "size_bytes": 2297339,
+            "source_identity": "UD Arabic-PADT r2.17-derived normalized dataset; preserve raw number=def bytes and canonicalize only at task load"
+          },
+          "device": "cuda:0",
+          "expected_examples": 4701,
+          "expected_hidden_size": 4096,
+          "expected_layer_count": 36,
+          "model_id": "qwen3-8b",
+          "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "prompt_version": "bf16-lre-prompts-v1",
+          "representation_semantics": {
+            "allow_cpu_offload": false,
+            "allow_fp16_fallback": false,
+            "allow_fp32_fallback": false,
+            "allow_quantization": false,
+            "allow_revision_fallback": false,
+            "allow_tokenizer_revision_fallback": false,
+            "allowed_model_loaders": [
+              "AutoModelForCausalLM",
+              "AutoModelForImageTextToText"
+            ],
+            "batch_padding": "right",
+            "capture_sites": [
+              "embedding_output",
+              "prompt_final",
+              "target_span_all_subtokens"
+            ],
+            "chat_template": "disabled",
+            "device_policy": "single_cuda_device_only",
+            "eval_mode": true,
+            "layer_semantics": "embedding output plus each text decoder block output before final model normalization; no logits and no final-normalized replacement",
+            "max_length_policy": "fail_if_rendered_prompt_exceeds_model_context",
+            "output_hidden_states": "forward_hooks_on_embedding_and_text_decoder_blocks",
+            "requested_dtype": "bfloat16",
+            "saved_tensor_dtype": "bfloat16",
+            "target_semantics": "causal prefix ending at final target-overlapping token; save every target-span token state from that prefix",
+            "trust_remote_code_policy": "manifest_value_only"
+          },
+          "requested_dtype": "bfloat16",
+          "run_id": "bf16-accessible-20260826-v1",
+          "saved_tensor_dtype": "bfloat16",
+          "schema_version": 1,
+          "started_utc": "2026-08-26T00:10:13.638258+00:00",
+          "status": "VALIDATED",
+          "successful_alignments": 4701,
+          "tokenizer_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+          "total_target_tokens": 10553,
+          "validated_utc": "2026-08-26T00:16:31.998305+00:00"
+        },
+        "manifest_sha256": "cf42fdfaaa11a99b47667f15ff269485060cdda54098d813a9fb07b212e270c5",
+        "metadata_check": {
+          "examples": 4701,
+          "ids_sha256": "58562e30d5dfa99de04d89b1b7acac9912d9a61a2cb75fc9ecbf36041906b889",
+          "metadata_match": true,
+          "source_rows_contiguous": true
+        },
+        "path": "/home/west/research-stack/runs/bf16/accessible-20260826-v1/bundles/qwen3-8b/metadata_free"
+      }
+    }
+  },
+  "command": "/home/west/ember/.venv/bin/python scripts/run_bf16_analysis.py --finalize-only --other-folds 5 --run-root runs/bf16-analysis/bf16-analysis-20260826-v2",
+  "created_utc": "2026-08-26T15:05:09.018768+00:00",
+  "dataset": {
+    "examples": 4701,
+    "path": "/home/west/research-stack/output/data/paper1_normalized.jsonl",
+    "sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719"
+  },
+  "file_count": 76,
+  "files": [
+    {
+      "bytes": 1221,
+      "path": "analysis_config.json",
+      "sha256": "390a4a55092ae7b18469311cd68f50942c864998f9a2c3e37815cd56c715b3fe"
+    },
+    {
+      "bytes": 76984,
+      "path": "analysis_status.jsonl",
+      "sha256": "4da098af9602ce581f7761fb945d41ed71589f7538d6f10b94bf77b6a71a6340"
+    },
+    {
+      "bytes": 2338,
+      "path": "results/analysis_decision.md",
+      "sha256": "3baa8ef26ff57c1bef60eff764902ee32714a93c00d7fd05f03891c49df31bb5"
+    },
+    {
+      "bytes": 24053,
+      "path": "results/bf16_q8_comparison.csv",
+      "sha256": "66d8b0b201445e0f1459e61d5273b63e1d5badfbf484af5e643d20d6a3fff630"
+    },
+    {
+      "bytes": 61748,
+      "path": "results/bf16_q8_comparison.json",
+      "sha256": "df5348754494479ca97cf66cdae2553ad2b440ac40194c3e6a6ede61fdb8d48f"
+    },
+    {
+      "bytes": 333447,
+      "path": "results/cells/allam-7b/full_prompt_final.json",
+      "sha256": "9024aca2b6ac0ac8700672047942bc3f5ee8621c025fdb385d6f192116991917"
+    },
+    {
+      "bytes": 333762,
+      "path": "results/cells/allam-7b/metadata_free_prompt_final.json",
+      "sha256": "248b4bd66e0640bfe3cae4901fc1a5cf3b63a7a1a3b2810fe5f76fb1895e3c60"
+    },
+    {
+      "bytes": 333691,
+      "path": "results/cells/allam-7b/target_final_subtoken.json",
+      "sha256": "e711d5a72102a8d71d822b1648d132a15b8cb5ec5809eba6ce2c43cd7a2e21f1"
+    },
+    {
+      "bytes": 333466,
+      "path": "results/cells/allam-7b/target_mean_span.json",
+      "sha256": "6d74fa52d371fc536a9ca6c17f3e30ebc6303d63e0bcc9ae3bd9a292a807bca1"
+    },
+    {
+      "bytes": 361993,
+      "path": "results/cells/gemma-4-2b/full_prompt_final.json",
+      "sha256": "698144730800dfad94d856356e3495ccc10112c6295b1d870f4b5e363e757bf9"
+    },
+    {
+      "bytes": 362430,
+      "path": "results/cells/gemma-4-2b/metadata_free_prompt_final.json",
+      "sha256": "3ae216ac0bccb589208df49d026281616f2a112e1de8e57695ea9d325bc206dc"
+    },
+    {
+      "bytes": 362187,
+      "path": "results/cells/gemma-4-2b/target_final_subtoken.json",
+      "sha256": "18a2ec1066c14b04148e77934e9fe9f2f272c69d06bced130a41c885c4e04fea"
+    },
+    {
+      "bytes": 361886,
+      "path": "results/cells/gemma-4-2b/target_mean_span.json",
+      "sha256": "74e06a556b7a5c5449b1b60ffc0a3d5c097c637dca2f9b10db4fd62f121f3b3e"
+    },
+    {
+      "bytes": 409702,
+      "path": "results/cells/jais-13b/full_prompt_final.json",
+      "sha256": "5cea5b567d0af7936fe59aa6ce2aac6a5f42af45a102135ceac60c596db82408"
+    },
+    {
+      "bytes": 410047,
+      "path": "results/cells/jais-13b/metadata_free_prompt_final.json",
+      "sha256": "8e92a76cd33c7efa22ad4329bc4d58e151e312cd7ee9aa17af70497394fd9bfa"
+    },
+    {
+      "bytes": 409876,
+      "path": "results/cells/jais-13b/target_final_subtoken.json",
+      "sha256": "b88e9f39844e137251680dc68126b3bb0038b9d8171f94afaaa7e1e0b466df30"
+    },
+    {
+      "bytes": 409611,
+      "path": "results/cells/jais-13b/target_mean_span.json",
+      "sha256": "b4dd161cb8bdf60cbb2452e2ded85ab6a80a83b0e3f1fa8b9c172561c960a3ae"
+    },
+    {
+      "bytes": 333543,
+      "path": "results/cells/llama-3.1-8b/full_prompt_final.json",
+      "sha256": "6226be82ec2bb7884972dec57888376c42412e9c41c91d2e1cbeecbe6dfbe24a"
+    },
+    {
+      "bytes": 333904,
+      "path": "results/cells/llama-3.1-8b/metadata_free_prompt_final.json",
+      "sha256": "c2836448e3594f14259168f45d3aa38aa18f8260e46e1ab95f61b46754bc0007"
+    },
+    {
+      "bytes": 333779,
+      "path": "results/cells/llama-3.1-8b/target_final_subtoken.json",
+      "sha256": "76ecb08d9e180a67973c1294b81a3485db4a837e5206a97f306c087ef79fb1c5"
+    },
+    {
+      "bytes": 333646,
+      "path": "results/cells/llama-3.1-8b/target_mean_span.json",
+      "sha256": "c32fc70b74290a4e4ec9900268e67664c603ec85c0a99fd0b521a2332a33c279"
+    },
+    {
+      "bytes": 366154,
+      "path": "results/cells/llama-3.2-1b/full_prompt_final.json",
+      "sha256": "9e9f9616f48ec52263facfa2d733df84e58ceedd3c6cbf1a94ccd85e84a33c4d"
+    },
+    {
+      "bytes": 366881,
+      "path": "results/cells/llama-3.2-1b/metadata_free_prompt_final.json",
+      "sha256": "62de8a35d9554d7c408a2305aef1fdcbefce91226177162235ab87d23859803b"
+    },
+    {
+      "bytes": 366541,
+      "path": "results/cells/llama-3.2-1b/target_final_subtoken.json",
+      "sha256": "690c0bcaa213ecd86eff63ecf215f789c703408a046f33b6b6c708b95df2c054"
+    },
+    {
+      "bytes": 365968,
+      "path": "results/cells/llama-3.2-1b/target_mean_span.json",
+      "sha256": "222e3a3bbd43169a179b6507bdf2dd89fe3b2c96a49455e4a0625c398a9bc555"
+    },
+    {
+      "bytes": 295395,
+      "path": "results/cells/llama-3.2-3b/full_prompt_final.json",
+      "sha256": "d6eab848ec1f9bb09d67bc288ec36fe7eff8f62729492da70c359033969bc365"
+    },
+    {
+      "bytes": 295751,
+      "path": "results/cells/llama-3.2-3b/metadata_free_prompt_final.json",
+      "sha256": "4fac2f4a6b9ef797b5f6f7f4b360e11061101453a4ef4f9945acab2f72271bce"
+    },
+    {
+      "bytes": 295523,
+      "path": "results/cells/llama-3.2-3b/target_final_subtoken.json",
+      "sha256": "f82ec9f41f68183effa4774e80c7cd5b944ceb5237ffd97ad6617af79403df76"
+    },
+    {
+      "bytes": 295369,
+      "path": "results/cells/llama-3.2-3b/target_mean_span.json",
+      "sha256": "91120b76a3ba13fe4ad00415698f58a3abf5007917faf6ddf365d56c0c6d7746"
+    },
+    {
+      "bytes": 333510,
+      "path": "results/cells/mistral-7b/full_prompt_final.json",
+      "sha256": "81ec857078ebd3a2e7b9e096c2903c0f776365c73bd48afff6aa580eaa742a56"
+    },
+    {
+      "bytes": 333909,
+      "path": "results/cells/mistral-7b/metadata_free_prompt_final.json",
+      "sha256": "eb91ff42950f243905a90d2520d0c7c1064c61d8d8c1a2e58c100347d3e453b6"
+    },
+    {
+      "bytes": 333667,
+      "path": "results/cells/mistral-7b/target_final_subtoken.json",
+      "sha256": "035cdce60f0eff81556453adaffe71278f1ed3f2780087593bdb1ac7a7b8e794"
+    },
+    {
+      "bytes": 333410,
+      "path": "results/cells/mistral-7b/target_mean_span.json",
+      "sha256": "6c024288827c6f190dc459a6182a62290af4ffe33730fe2aa56989baac113c30"
+    },
+    {
+      "bytes": 333441,
+      "path": "results/cells/phi-3-mini/full_prompt_final.json",
+      "sha256": "e4c5c2365c1521d3c6c850b5c10b673570eb4a3273cc9584cd6c2058ce971dc9"
+    },
+    {
+      "bytes": 333845,
+      "path": "results/cells/phi-3-mini/metadata_free_prompt_final.json",
+      "sha256": "ac0e16537f8159baca6e299ded697acf3bda1c0824fe474d2e543468eea3e3f2"
+    },
+    {
+      "bytes": 333650,
+      "path": "results/cells/phi-3-mini/target_final_subtoken.json",
+      "sha256": "5612d322ad462d1a8c17b686cb37503a626603595bed92a0ef29845c688ca032"
+    },
+    {
+      "bytes": 333454,
+      "path": "results/cells/phi-3-mini/target_mean_span.json",
+      "sha256": "a1c6886dc3b018ebbb30386c3db8c7c91386743f61066be7bd49ac11164c377e"
+    },
+    {
+      "bytes": 295347,
+      "path": "results/cells/qwen2.5-1.5b/full_prompt_final.json",
+      "sha256": "9700a1a40922229016179a4b86479ce3c6f30819482c772548978a0913000c7d"
+    },
+    {
+      "bytes": 295845,
+      "path": "results/cells/qwen2.5-1.5b/metadata_free_prompt_final.json",
+      "sha256": "9a6a744adc94af9267d76adba84f73049cddfa04c1578470370cb27946b06005"
+    },
+    {
+      "bytes": 295562,
+      "path": "results/cells/qwen2.5-1.5b/target_final_subtoken.json",
+      "sha256": "6a585416ff2c02dcee83383d7019860f09344ee0f48cbedd7697696c2abed441"
+    },
+    {
+      "bytes": 295432,
+      "path": "results/cells/qwen2.5-1.5b/target_mean_span.json",
+      "sha256": "ab094c0f5ea2d7f1e2a3510c19f63bacd21c82562eea8312efc945669a5a0862"
+    },
+    {
+      "bytes": 597254,
+      "path": "results/cells/qwen3-0.6b/full_prompt_final.json",
+      "sha256": "030ac6d378e4e2b7f0eb6bc404d13b00a17c048614d8541d2eb7886ea8fb435f"
+    },
+    {
+      "bytes": 597890,
+      "path": "results/cells/qwen3-0.6b/metadata_free_prompt_final.json",
+      "sha256": "73f2450b04a0e3b3c91f48a32db2d5ad3ea8641f69f82959e983cb4fd12d4621"
+    },
+    {
+      "bytes": 597558,
+      "path": "results/cells/qwen3-0.6b/target_final_subtoken.json",
+      "sha256": "708be3ada2779fb0cee4a1508d926208eca5fe32a0833ef5bbf625ff6ab9febb"
+    },
+    {
+      "bytes": 597155,
+      "path": "results/cells/qwen3-0.6b/target_mean_span.json",
+      "sha256": "d1679778d47faab13b97f108a4a3b2e1c8f8bae0239c01f09869b41fe6209066"
+    },
+    {
+      "bytes": 371566,
+      "path": "results/cells/qwen3-8b/full_prompt_final.json",
+      "sha256": "d1e9bfdac2ed5f3e2c17efaac33d0f5cef7ec1214751b2e77d1cdc3d0c6b40d1"
+    },
+    {
+      "bytes": 371866,
+      "path": "results/cells/qwen3-8b/metadata_free_prompt_final.json",
+      "sha256": "280e05ecc94e960745d297d317b580fac541ee22a89cb6d791c38f44d07aacf4"
+    },
+    {
+      "bytes": 371827,
+      "path": "results/cells/qwen3-8b/target_final_subtoken.json",
+      "sha256": "f18bf8b5fdea0da8138d0e2e769de651e81f37f6a2a202499e1b657243f53c3c"
+    },
+    {
+      "bytes": 371631,
+      "path": "results/cells/qwen3-8b/target_mean_span.json",
+      "sha256": "0cb8610e317ce65f9b7521e9965f4f48c38233870241f59beef491c67628ea3b"
+    },
+    {
+      "bytes": 1848,
+      "path": "results/cka_rsa_diagnostics.json",
+      "sha256": "e700e2f8dd5f9b66f2635de098c3b9bdd4583e7099efc17abb8d12eef5b24e45"
+    },
+    {
+      "bytes": 631031,
+      "path": "results/class_pos_error_analysis.csv",
+      "sha256": "86106c9773c51733ca83c53e85137c6a50a3801179e47bd4268e6de4f2ce077e"
+    },
+    {
+      "bytes": 9786,
+      "path": "results/cloud_cost_records.json",
+      "sha256": "7900a08826261fcc9b3074aeae1f50c3be580203c5c9640e2c147eeb36cb786a"
+    },
+    {
+      "bytes": 70,
+      "path": "results/figures/figures_status.json",
+      "sha256": "cec4f178da6dd9fef67b6b2ce162f6afacc6bd73675191eeb044dac02d5a7856"
+    },
+    {
+      "bytes": 57031,
+      "path": "results/figures/llama-3.2-1b_pos_accuracy.png",
+      "sha256": "62851ae594fa27f4308cf7db58995e091052a1664895eb14bc31de54d704fb9a"
+    },
+    {
+      "bytes": 76085,
+      "path": "results/figures/llama-3.2-1b_pos_layer_curves.png",
+      "sha256": "df957fd53b541fb558ea9b75c2d4ded8b359028f60e2cbef704991e8ff365333"
+    },
+    {
+      "bytes": 58770,
+      "path": "results/figures/qwen3-0.6b_pos_accuracy.png",
+      "sha256": "8ad58df679b2419f3122eda6a7af2fe3a7b4cb47603df045e6c733485d72824a"
+    },
+    {
+      "bytes": 82767,
+      "path": "results/figures/qwen3-0.6b_pos_layer_curves.png",
+      "sha256": "08c06475c5563a476eed5b09f303fa7a4d84e407bed7e33b1d2fadda003253a9"
+    },
+    {
+      "bytes": 20871,
+      "path": "results/fragmentation.csv",
+      "sha256": "035203c86cf040306f376f4f57ebae0a3e7e7a0502c6d272c5d9f95143f96ed7"
+    },
+    {
+      "bytes": 6769299,
+      "path": "results/layer_curves.csv",
+      "sha256": "190ba4839521f7be7594d339c5ea38332598e1b77bd12980c9771e2dbd46f0c4"
+    },
+    {
+      "bytes": 1656,
+      "path": "results/local_analysis_sufficiency.json",
+      "sha256": "8563f1a8ac8f1f75c504cc4ed5be3cd145c00abef1670bbb821175c41eceba65"
+    },
+    {
+      "bytes": 10496,
+      "path": "results/macro_f1_split_deltas.csv",
+      "sha256": "d7f2b15af4ef356ffa0c4e246cafb0b99ccd6abef98f51686f4a0914420b37bf"
+    },
+    {
+      "bytes": 8960,
+      "path": "results/macro_f1_split_deltas.md",
+      "sha256": "85809d317f5e535272a06d419ac71c0246b2d46d4f74e13b2580a66a40feb64a"
+    },
+    {
+      "bytes": 8518,
+      "path": "results/macro_f1_split_deltas.tex",
+      "sha256": "339f0aab999e530cbbaace71d0e4d86f9784d690a5bbdd8139d9813ef0f0b407"
+    },
+    {
+      "bytes": 11857634,
+      "path": "results/predictions/llama-3.2-1b/full_prompt_final.jsonl",
+      "sha256": "a71b489e96e1aef9fe541dddc8b495d5e1144568e4655d6f86a57634ae7f530e"
+    },
+    {
+      "bytes": 12238015,
+      "path": "results/predictions/llama-3.2-1b/metadata_free_prompt_final.jsonl",
+      "sha256": "da9128533c495778e676f6a70897fca0237a2fb6c3787ef8fefc81140b741b29"
+    },
+    {
+      "bytes": 12025991,
+      "path": "results/predictions/llama-3.2-1b/target_final_subtoken.jsonl",
+      "sha256": "56ca34c98100eba0cefee8f9f9e7550e4fe4f744c9eadc062fe6dc90f699e826"
+    },
+    {
+      "bytes": 11814608,
+      "path": "results/predictions/llama-3.2-1b/target_mean_span.jsonl",
+      "sha256": "d91f1932f4ea8c5ff78f4fe978c392ef392f6a3cf87e50beb895799e84de7d57"
+    },
+    {
+      "bytes": 11773542,
+      "path": "results/predictions/qwen3-0.6b/full_prompt_final.jsonl",
+      "sha256": "581d2279030e6a7d5850d135583f05cdc42f58202bd23809949380e70f4a4539"
+    },
+    {
+      "bytes": 12153932,
+      "path": "results/predictions/qwen3-0.6b/metadata_free_prompt_final.jsonl",
+      "sha256": "f2ad9db056b4b5981d70e78f83fbbc4c2fb70942bacc1d35d6562e665d913ea4"
+    },
+    {
+      "bytes": 11942494,
+      "path": "results/predictions/qwen3-0.6b/target_final_subtoken.jsonl",
+      "sha256": "001b1e0e440e2c39292e8616cfcf2e87d0047115f73966c10ba4a9e9465bc13a"
+    },
+    {
+      "bytes": 11730993,
+      "path": "results/predictions/qwen3-0.6b/target_mean_span.jsonl",
+      "sha256": "90c39a3b4c19df973b666a4dcb9c12eddf6d7d15dcbbbef00fffc3abb5a69acd"
+    },
+    {
+      "bytes": 47424,
+      "path": "results/shuffled_controls.csv",
+      "sha256": "85f2b112acd2296373de9e8f1c75eb7d6d49f24028b7515814fee2e48892f71a"
+    },
+    {
+      "bytes": 75642,
+      "path": "results/summary.csv",
+      "sha256": "544779f65811879d3b5549a6f10194b3f1f1ea8e440f36b41c90220b7d30fb72"
+    },
+    {
+      "bytes": 51166,
+      "path": "results/summary.md",
+      "sha256": "d37d438418d8b389b090b96bf5138ae2fa33efd3c8bbb2d89f40c6c1764a7fa5"
+    },
+    {
+      "bytes": 34441,
+      "path": "results/summary.tex",
+      "sha256": "7a768962e200d6fc4c70765c8c3e12d7c4b99a7b76fc329d913aca7737914d83"
+    },
+    {
+      "bytes": 53572563,
+      "path": "split_manifest.json",
+      "sha256": "11204a6f9dc39a3d6542e9a4294c5473aa438200677145482d3ee07b77f2d17e"
+    }
+  ],
+  "immutability": "This analysis root is complete evidence. Future changes require a new analysis run and new freeze ID.",
+  "matrix_manifest": {
+    "path": "/home/west/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json",
+    "sha256": "096c29bda73a806df435cb3326ca37e977dfe4517708c9139368abba463544c1"
+  },
+  "platform": "Linux-7.1.5-arch1-2-x86_64-with-glibc2.44",
+  "python": "3.14.6 (main, Jun 15 2026, 11:36:54) [GCC 16.1.1 20260430]",
+  "run_id": "bf16-analysis-20260826-v2",
+  "schema_version": 1,
+  "status": "COMPLETE_WEIGHT_FREE_BF16_ANALYSIS",
+  "total_bytes": 173354348
+}

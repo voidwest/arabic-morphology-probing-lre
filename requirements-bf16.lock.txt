@@ -1,0 +1,16 @@
+# Locked environment for BF16 extraction and the corresponding local analysis.
+# The CUDA wheel source must match the selected PyTorch build.
+# PyPI publishes this CUDA 13 build under the normalized release version;
+# its CUDA 13 runtime dependencies are installed transitively.
+torch==2.13.0
+transformers==5.10.2
+accelerate==1.14.0
+safetensors==0.7.0
+huggingface-hub==1.17.0
+tokenizers==0.22.2
+numpy==2.4.6
+scikit-learn==1.8.0
+pyarrow==24.0.0
+tiktoken==0.14.0
+sentencepiece==0.2.1
+protobuf==6.33.0

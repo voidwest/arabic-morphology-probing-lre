@@ -1,0 +1,56 @@
+{
+  "fields_consumed_by_planned_analysis": {
+    "identity": [
+      "example_id",
+      "source_dataset",
+      "source_row",
+      "surface",
+      "surface_dediac",
+      "lemma",
+      "root",
+      "pos",
+      "gender",
+      "number",
+      "source_split",
+      "source_split_type"
+    ],
+    "local_analysis": [
+      "nested random/lemma/root split indices",
+      "all requested fold predictions for primary models",
+      "train-only majority baseline",
+      "dev-only layer selection",
+      "fixed alpha=1 Ridge",
+      "shuffled controls",
+      "fragmentation bins",
+      "POS strata",
+      "BF16/Q8 metric comparison"
+    ],
+    "representations": [
+      "embedding_output",
+      "prompt_final per layer",
+      "target_span all subtokens per layer",
+      "locally derived target_final_subtoken",
+      "locally derived target_mean_span"
+    ],
+    "tokenization": [
+      "input_ids",
+      "sequence_length",
+      "target_byte_span",
+      "target_char_span",
+      "target_token_indices",
+      "target_token_count",
+      "target_token_ids",
+      "token_pieces",
+      "tokenizer identity/revision",
+      "prompt",
+      "prompt_sha256"
+    ]
+  },
+  "notes": [
+    "CKA/RSA diagnostic matrices are recomputable from the saved layer tensors; they are not used for probe selection.",
+    "Raw BF16-Q8 vector cosine/relative-L2 is blocked until the historical Q8 arrays are restored from the v3 external-artifact record or a separately approved Q8 rerun.",
+    "No dataset, label, split, representation, or statistical procedure is changed by this runner."
+  ],
+  "schema_version": 1,
+  "weights_required_after_capture": false
+}

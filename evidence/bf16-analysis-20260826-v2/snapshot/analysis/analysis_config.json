@@ -1,0 +1,49 @@
+{
+  "alpha_grid": [
+    1.0
+  ],
+  "analysis_schema": "bf16-local-analysis-v1",
+  "dataset": "/home/west/research-stack/output/data/paper1_normalized.jsonl",
+  "dataset_sha256": "9098be4e60390f50686a4cee277b0cb4ab6a1e4bee73aeddd77106f9bdb7d719",
+  "feature_sets": [
+    "full_prompt_final",
+    "metadata_free_prompt_final",
+    "target_final_subtoken",
+    "target_mean_span"
+  ],
+  "matrix": "/home/west/research-stack/configs/bf16_model_matrix_20260826_jais_resolved.json",
+  "matrix_sha256": "096c29bda73a806df435cb3326ca37e977dfe4517708c9139368abba463544c1",
+  "models": [
+    "qwen3-0.6b",
+    "qwen2.5-1.5b",
+    "qwen3-8b",
+    "llama-3.2-1b",
+    "llama-3.2-3b",
+    "llama-3.1-8b",
+    "gemma-4-2b",
+    "phi-3-mini",
+    "mistral-7b",
+    "jais-13b",
+    "allam-7b"
+  ],
+  "other_folds": 5,
+  "primary_folds": 5,
+  "primary_models": [
+    "llama-3.2-1b",
+    "qwen3-0.6b"
+  ],
+  "protocol": "BF16 bundles only; StandardScaler + RidgeClassifier(alpha=1.0); dev-only layer selection; test evaluated once per outer fold",
+  "schema_version": 1,
+  "seed": 42,
+  "shuffle_seed": 1729,
+  "splits": [
+    "random",
+    "lemma-heldout",
+    "root-heldout"
+  ],
+  "tasks": [
+    "pos",
+    "gender",
+    "number"
+  ]
+}
