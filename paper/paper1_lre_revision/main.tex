@@ -37,20 +37,21 @@ split design and representation-interface design as measurement choices in
 decoder-only morphology probing. Using Arabic morphology as a testbed, we
 evaluate eleven pinned Hugging Face models with BF16 hidden-state captures,
 three morphology tasks, three split conditions, and four representation
-interfaces. The evaluation uses deterministic nested five-fold procedures,
-development-only layer selection, fixed Ridge classification, shuffled-label
-controls, validated token alignment, and checksummed artifacts. Across the 132 model--task--
-interface comparisons, random-split macro-F1 is higher than both lemma-heldout
-and root-heldout macro-F1. The random-minus-lemma differences range from
+interfaces. The evaluation uses deterministic nested five-fold procedures and
+development-only layer selection. It also fixes the Ridge classifier, records
+shuffled-label controls, validates token alignment, and archives checksummed
+artifacts. Across the 132 model--task--interface comparisons, random-split
+macro-F1 is higher than both lemma-heldout and root-heldout macro-F1. The random-minus-lemma differences range from
 0.0127 to 0.2863 (mean 0.1059), and random-minus-root differences range from
-0.0255 to 0.2796 (mean 0.1179). Effects vary by model, task, and interface;
-the range rules out a single summary penalty. A full-metadata prompt-final
+0.0255 to 0.2796 (mean 0.1179). The size of this difference varies by model,
+task, and interface. A single summary penalty therefore obscures the observed
+heterogeneity. A full-metadata prompt-final
 state compares position together with information availability: the prompt
-explicitly supplies lemma, root, and pattern. A
-metadata-free prompt-final condition and target-span pooling expose these
+explicitly supplies lemma, root, and pattern. A metadata-free prompt-final
+condition and target-span pooling expose these
 confounds while holding the dataset and probe fixed. The results support
 claims about linear recoverability under named prompts, splits, token spans,
-and estimators; questions about causal model use, linguistic competence, and
+and estimators. Questions about causal model use, linguistic competence, and
 behavior in other settings require separate evidence. Planned
 post-extraction analyses can use archived representations and derived artifacts
 alone.
@@ -66,8 +67,8 @@ decoder-only models, reproducibility}
 Diagnostic classifiers are useful because they make a representation's
 accessibility testable with a comparatively simple estimator. A probe that
 predicts a linguistic label from a hidden state requires an explicit account
-of its measurement conditions. The result can depend on
-which examples are placed together, which information the prompt supplies,
+of its measurement conditions. Those conditions include which examples are
+placed together and which information the prompt supplies. They also include
 where the hidden state is extracted, how subword tokens are aligned to the
 stimulus, and how imbalanced labels are scored. Work on probing has therefore
 emphasized control tasks, selectivity, and careful interpretation
@@ -76,7 +77,8 @@ ravichander-etal-2021}.
 
 This paper studies one particularly consequential evaluation choice: whether
 the test set contains lexical identities or lexical families that also occur
-in training. Under a random instance split, repeated lemmas, roots, or related
+in training. To see why this matters, consider the lexical unit shared by the
+two sides of a split. Under a random instance split, repeated lemmas, roots, or related
 surface forms can appear on both sides of the partition. If those identities
 are correlated with morphology, a probe can obtain a high score while being
 tested mainly on interpolation within a familiar lexical inventory. A split
@@ -104,10 +106,10 @@ has processed the target, the instruction, and any fields that follow the
 target. In the full-metadata condition used here, lemma, root, and pattern are
 explicitly present. A target-final state is extracted from a causal prefix
 ending at the final target-overlapping token, excluding those later fields. A
-comparison between these states therefore changes
-both position and available information. We add a metadata-free prompt-final
-condition to isolate part of that confound and retain the complete target span
-so that final-subtoken and mean-span representations can be derived locally.
+comparison between these states therefore changes both position and available
+information. We add a metadata-free prompt-final condition to isolate part of
+that confound. We retain the complete target span, which allows
+final-subtoken and mean-span representations to be derived locally.
 
 The central contribution is a methodological evaluation of lexical split
 validity and representation-interface validity in decoder-only morphology
