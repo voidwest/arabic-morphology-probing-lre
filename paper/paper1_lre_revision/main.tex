@@ -114,8 +114,7 @@ final-subtoken and mean-span representations to be derived locally.
 The central contribution is a methodological evaluation of lexical split
 validity and representation-interface validity in decoder-only morphology
 probing, with Arabic morphology as the testbed. The study uses the completed
-BF16 matrix, with the historical Q8 run serving as robustness context. Its
-contribution is an audited account of the decisions that determine what a
+BF16 matrix. Its contribution is an audited account of the decisions that determine what a
 probe score means, together with archived representations that make later
 analyses independent of renewed model inference.
 
@@ -574,7 +573,7 @@ This design matters scientifically because it separates model inference from
 analysis. The local sufficiency audit confirms that the saved fields support
 the split reconstruction, all planned pooling choices, layer curves, linear
 probes, majority controls, shuffled controls, fragmentation bins, class/POS
-error analysis, BF16/Q8 metric comparison, and CKA/RSA-compatible matrices.
+error analysis, and CKA/RSA-compatible matrices.
 The recorded post-capture contract is \texttt{weights\_required=false}.
 
 \section{Results}
@@ -765,23 +764,6 @@ and macro-F1 in the 1, 2, and 3+ target-token bins. These analyses are
 diagnostic descriptions of where errors occur, separate from the primary
 estimands.
 
-\subsection{BF16 relative to historical Q8}
-
-The historical Q8 captures provide robustness and historical context; BF16 is
-the primary experiment. For overlapping model/interface/task/split
-comparisons, BF16 and historical Q8 agree in majority-relative metric
-direction for 105 of 108 fold-zero comparisons. This supports the conclusion
-that the broad qualitative contrast between real-label results and the
-majority reference extends across two numeric formats.
-
-The comparison measures metric-direction agreement; numerical equivalence
-between BF16 and Q8 hidden states would require paired hidden-state arrays.
-The raw historical
-Q8 feature arrays listed in the v3 external artifact record are absent from the
-live checkout, so direct BF16--Q8 vector cosine and relative-L2 comparisons
-remain unavailable. The historical Q8 run was neither repeated nor relabeled,
-and no vector claim is inferred from the metric-direction result.
-
 \subsection{Supporting CKA/RSA diagnostics}
 
 Fixed-sample CKA and RSA matrices are retained for the two primary models and
@@ -915,12 +897,6 @@ bootstrap targets conditional finite-test-set variation under fixed probes,
 partitions, and representations. Population or training-seed uncertainty and
 causal interventions require separate designs.
 
-Finally, the direct BF16--Q8 vector comparison remains unavailable because
-historical Q8 feature arrays are absent from the live checkout. We report only
-the verified 105/108 majority-relative direction agreement. This limitation
-belongs to the historical artifact record; the Q8 experiment remains the
-historical execution with its original labels.
-
 \section{Resource, Code, and Reproducibility Availability}
 
 The complete working package is organized around immutable evidence and
@@ -940,7 +916,7 @@ weight-free analysis. It contains:
     manifests, commands, runtime metadata, checksums, and completion records;
     \item deterministic split manifests, five-fold result cells, primary-model
     predictions, majority and shuffled controls, fragmentation and class/POS
-    error analyses, BF16/Q8 comparison records, and fixed CKA/RSA diagnostics;
+    error analyses, and fixed CKA/RSA diagnostics;
     \item the local loaders and analysis runner, a sufficiency audit showing
     that planned post-extraction analyses can use archived representations
     alone, and a content-addressed BF16 analysis freeze.
@@ -949,9 +925,8 @@ weight-free analysis. It contains:
 The primary analysis source is \bfana. Its complete dataset and model-matrix
 hashes are recorded in the run manifest, frozen snapshot, and quantitative
 claim ledger. The freeze verifier passed for
-\texttt{evidence/bf16-analysis-20260826-v2/}. The
-historical LRE v3 freeze and historical Q8 run remain separate, immutable
-records; this manuscript leaves them unchanged.
+\texttt{evidence/bf16-analysis-20260826-v2/}. Historical archives remain
+separate, immutable records; this manuscript leaves them unchanged.
 
 Reproduction begins by verifying the dataset, model-matrix, bundle, and
 analysis-freeze hashes, then running the local analysis command against the
@@ -1090,9 +1065,6 @@ The audit package also contains:
     3+;
     \item \texttt{class\_pos\_error\_analysis.csv} with per-class and
     POS-stratified errors;
-    \item \texttt{bf16\_q8\_comparison.json} with the 105/108
-    majority-relative direction record and the unavailable vector-comparison
-    status;
     \item \texttt{cka\_rsa\_diagnostics.json} and
     \texttt{analysis\_decision.md}, documenting the supporting-only status of
     CKA/RSA;
@@ -1107,8 +1079,8 @@ The manuscript's claim-to-artifact mapping is supplied alongside this source
 as \texttt{quantitative\_claim\_map.md}. It maps every numerical claim to the
 generated result, dataset provenance, model manifest, or audit record that
 produces it. The manuscript reports numerical results only when a generating
-artifact is available; direct Q8 vector comparisons and ungenerated analyses
-therefore remain unquantified.
+artifact is available; analyses outside the recorded scope are not inserted
+without a corresponding artifact.
 
 \backmatter
 
