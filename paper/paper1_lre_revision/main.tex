@@ -37,8 +37,8 @@ split design and representation-interface design as measurement choices in
 decoder-only morphology probing. Using Arabic morphology as a testbed, we
 evaluate eleven pinned Hugging Face models with BF16 hidden-state captures,
 three morphology tasks, three split conditions, and four representation
-interfaces. The evaluation uses deterministic nested five-fold procedures and
-development-only layer selection. It also fixes the Ridge classifier, records
+interfaces. The evaluation uses deterministic five-fold outer evaluation with
+development-only model selection. It also fixes the Ridge classifier, records
 shuffled-label controls, validates token alignment, and archives checksummed
 artifacts. Across the 132 model--task--interface comparisons, random-split
 macro-F1 is higher than both lemma-heldout and root-heldout macro-F1. The random-minus-lemma differences range from
@@ -399,7 +399,7 @@ elsewhere have a separate interpretation.
 The majority baseline predicts the most frequent training label, with explicit
 deterministic tie-breaking. It is computed separately for every task and
 outer fold, never from the test labels. Shuffled-label controls are run for
-the two primary models, all four interfaces, all three tasks, all three split
+the two primary models (Qwen3-0.6B and Llama-3.2-1B), all four interfaces, all three split
 conditions, and all five folds. Labels are permuted independently within
 training, development, and test before the same layer-selection and fitting
 pipeline is run. The complete audit contains 360 shuffled cells. None exceeds
@@ -651,11 +651,12 @@ visible.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.96\linewidth]{figures/Fig1_qwen3-0.6b_pos_accuracy.png}
-\caption{Generated BF16 POS accuracy summary for Qwen3-0.6B across the three
-split conditions and four interfaces. The figure is descriptive; the full
-numeric matrix is the CSV artifact}
-\label{fig:qwen-pos}
+\includegraphics[width=0.96\linewidth]{figures/Fig1_split_deltas.png}
+\caption{Mean random-minus-heldout macro-F1 gaps for the eleven models,
+averaged over the three tasks and four representation interfaces. The two
+bars show lemma-heldout and root-heldout gaps; the complete model-by-task-by-
+interface values are in Table~\ref{tab:axis-deltas} and the CSV artifact.}
+\label{fig:split-deltas}
 \end{figure}
 
 \begin{figure}[t]
@@ -1085,11 +1086,12 @@ without a corresponding artifact.
 \backmatter
 
 \bmhead{Acknowledgements}
-During preparation of this manuscript, the author used generative AI tools,
-including OpenAI Codex and DeepSeek-based tools, for limited editorial
-assistance and software/documentation support. The author reviewed and
-verified the manuscript, citations, code, data, analyses, and reported claims
-and retains full responsibility for the final work.
+During preparation and revision of this manuscript, the author used generative
+AI tools, including OpenAI ChatGPT and Codex and DeepSeek-based tools, for
+manuscript organization and drafting/revision assistance, as well as software
+and documentation support. All outputs were reviewed and verified by the
+author, who retains full responsibility for the manuscript, citations, code,
+data, analyses, and reported claims.
 
 \bmhead{Statements and Declarations}
 
