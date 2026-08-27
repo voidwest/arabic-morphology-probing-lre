@@ -14,7 +14,7 @@ recomputable by filtering or aggregating that CSV; no values are estimated.
 | POS x gender x number descriptive cross-tab | `output/data/paper1_normalized.jsonl` | task-load `number:def -> du`, require all three labels; rendered in `tables/pos_gender_number.tex` |
 | PADT source and 5,000-to-4,701 construction | `data/provenance/paper1_dataset_manifest.json`, `docs/paper1_dataset_provenance.md` | transformation stages and hashes |
 | 11 models; 22 BF16 condition bundles; 44 analysis units | `evidence/bf16-analysis-20260826-v2/snapshot/analysis/analysis_manifest.json` | 11 bundle model keys x 2 condition manifests; 44 cell-unit files |
-| 1,980 real cells and 360 shuffled cells | analysis audit of `results/cells/*` and `results/shuffled_controls.csv` | 44 x 3 tasks x 3 splits x 5 folds; two primary-model controls |
+| 1,980 real cells and 360 shuffled cells | `evidence/bf16-analysis-20260826-v2/snapshot/analysis/results/cells/*` and `evidence/bf16-analysis-20260826-v2/snapshot/analysis/results/shuffled_controls.csv` | 44 x 3 tasks x 3 splits x 5 folds; two primary-model controls |
 | Five outer folds for every model/split/interface | `evidence/bf16-analysis-20260826-v2/snapshot/analysis/results/summary.csv` | every row has `folds=5`; 396 summary rows |
 | All 132 random-minus-grouped delta rows positive | `evidence/bf16-analysis-20260826-v2/snapshot/analysis/results/macro_f1_split_deltas.csv` | 132 rows; both delta columns > 0 |
 | Delta ranges and grand means: lemma +0.0127 to +0.2863, mean +0.1059; root +0.0255 to +0.2796, mean +0.1179 | `evidence/bf16-analysis-20260826-v2/snapshot/analysis/results/macro_f1_split_deltas.csv` | min/max/mean over 132 rows |
