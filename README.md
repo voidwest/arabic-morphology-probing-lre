@@ -1,7 +1,7 @@
 # Arabic morphology probing: LRE reproducibility archive
 
 This public repository contains the source, configuration, data provenance,
-validated compact evidence, extraction code, analysis code, and manuscript for
+validated compact evidence, extraction code, and analysis code for
 the LRE study. The current scientific state is the completed BF16 analysis
 freeze:
 
@@ -9,13 +9,9 @@ freeze:
 evidence/bf16-analysis-20260826-v2/
 ```
 
-The current manuscript is the official Springer Nature journal source and
-compiled PDF:
-
-```text
-paper/paper1_lre_revision/main.tex
-paper/paper1_lre_revision/main.pdf
-```
+The manuscript source is maintained with the journal submission and is not
+stored in this repository, which holds the data, code, and reproducibility
+artifacts.
 
 The source paper uses the eleven-model BF16 matrix, three tasks, three split
 conditions, four representation interfaces, five outer folds, development-only
@@ -33,16 +29,6 @@ python3 -m pip install -r requirements-bf16.lock.txt
 make data-verify
 make freeze-verify
 make test
-```
-
-The manuscript can be compiled from its directory:
-
-```bash
-cd paper/paper1_lre_revision
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-bibtex main
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
 The cloud extraction and weight-free local-analysis commands are documented in
@@ -69,7 +55,7 @@ and access conditions.
 
 ## Scope and hygiene
 
-The archive contains only material needed to inspect, validate, reproduce, or
-submit the current BF16 paper state. It contains no model weights, cloud
+The archive contains only material needed to inspect, validate, or reproduce
+the current BF16 paper state. It contains no model weights, cloud
 credentials, Hugging Face tokens, agent/session logs, historical TACL working
 trees, unrelated benchmark projects, or obsolete Q8 execution code.
